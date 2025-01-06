@@ -1,12 +1,12 @@
 aws:
-  region: "us-east-1"  
+  region: "us-east-2"  
 s3:
-  bucket_name: "mlops-project-bucket"  
+  bucket_name: "pbg202"  
   raw_data_prefix: "data/raw/"
   processed_data_prefix: "data/processed/"
   model_prefix: "models/"
 ec2:
   instance_type: "t2.micro"  
-  ami_id: null  
-  key_name: null  
+  ami_id: ami-0c94855ba95c71c99  
+  key_name: mlops-key  
   security_group: "mlops-security-group"  

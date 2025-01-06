@@ -1,15 +1,23 @@
 import pandas as pd
 import boto3
 import os
+from dotenv import load_dotenv
 from io import StringIO
 import yaml
 
-# Cargar configuración
-with open("config/pipeline_config.yaml", "r") as f:
+# Cargar configuración desde archivo .env
+load_dotenv()
+
+# Cargar configuración desde pipeline_config.yaml
+with open("../../config/pipeline_config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
+# Configuración de S3
 s3 = boto3.client('s3')
 bucket_name = os.getenv("AWS_S3_BUCKET")
+
+if not bucket_name:
+    raise ValueError("La variable AWS_S3_BUCKET no está definida en el archivo .env")
 
 # Descarga de datos desde S3
 def load_data_from_s3(input_path):
@@ -17,14 +25,31 @@ def load_data_from_s3(input_path):
     response = s3.get_object(Bucket=bucket_name, Key=key)
     return pd.read_csv(StringIO(response['Body'].read().decode('utf-8')))
 
-# Cargar datos
+# Cargar datos brutos
 data = load_data_from_s3(config['preprocessing']['input_path'])
 
-# Transformaciones específicas según el notebook
-data.dropna(subset=['important_column'], inplace=True)  # Manejo de valores faltantes específicos
-data['new_feature'] = data['existing_feature'] ** 2  # Crear nuevas columnas o transformaciones
+# ------------------------------------------------------------------------------
+# 1. Renombrar columnas:
+data.columns = [
+    'person_age', 
+    'person_gender', 
+    'person_education', 
+    'person_income', 
+    'person_emp_exp', 
+    'person_home_ownership',
+    'loan_amnt', 
+    'loan_intent', 
+    'loan_int_rate', 
+    'loan_percent_income', 
+    'cb_person_cred_hist_length', 
+    'credit_score',
+    'previous_loan_defaults_on_file', 
+    'loan_status'
+]
 
-# Guardar datos procesados en S3
+
+# ------------------------------------------------------------------------------
+# Guardar datos (ya con las columnas renombradas) en S3
 def save_data_to_s3(df, output_path):
     key = output_path.replace(f"s3://{bucket_name}/", "")
     csv_buffer = StringIO()

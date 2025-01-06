@@ -10,6 +10,7 @@ __pycache__/
 *.pkl
 
 venv/*
+venv2/*
 
 # Archivos de Jupyter Notebook
 .ipynb_checkpoints/
