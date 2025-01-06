@@ -1,0 +1,12 @@
+aws:
+  region: "us-east-1"  
+s3:
+  bucket_name: "mlops-project-bucket"  
+  raw_data_prefix: "data/raw/"
+  processed_data_prefix: "data/processed/"
+  model_prefix: "models/"
+ec2:
+  instance_type: "t2.micro"  
+  ami_id: null  
+  key_name: null  
+  security_group: "mlops-security-group"  

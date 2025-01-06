@@ -1,0 +1,23 @@
+pipeline:
+  stages:
+    - preprocess
+    - train
+    - deploy
+
+preprocessing:
+  input_path: "s3://mlops-project-bucket/data/raw/"
+  output_path: "s3://mlops-project-bucket/data/processed/"
+  missing_value_strategy: "mean"
+training:
+  dataset_path: "s3://mlops-project-bucket/data/processed/training_data.csv"
+  model_output_path: "s3://mlops-project-bucket/models/"
+  algorithm: "RandomForest"
+  hyperparameters:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+
+deployment:
+  model_path: "s3://mlops-project-bucket/models/final_model.pkl"
+  endpoint_name: "mlops-endpoint"
+  instance_type: "ml.t2.medium"

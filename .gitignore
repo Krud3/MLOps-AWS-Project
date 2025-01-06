@@ -1,0 +1,52 @@
+# Archivos sensibles
+.env
+*.pem
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+venv/*
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints/
+
+# Archivos y carpetas temporales
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+
+# Carpetas de datos locales
+data/raw/
+data/processed/
+
+# Modelos y salidas generadas
+models/
+*.joblib
+*.h5
+*.model
+
+# Archivos de configuración temporal
+*.yaml~
+*.json~
+
+# Archivos de Docker y dependencias
+*.dockerignore
+Dockerfile~
+
+# Archivos de control de AWS
+ec2_instance_id.txt
+
+# Otros archivos generados por el entorno
+.vscode/
+.idea/
+*.iml
+
+# Ignorar configuraciones de sistema operativo
+Thumbs.db
+.DS_Store
