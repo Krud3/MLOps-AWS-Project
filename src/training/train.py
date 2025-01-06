@@ -95,6 +95,12 @@ full_pipeline = ColumnTransformer([
 X_train_transformed = full_pipeline.fit_transform(X_train)
 X_test_transformed  = full_pipeline.transform(X_test)
 
+#to get data
+first_row = X_test_transformed[0]
+sec_row = X_test_transformed[1]  
+print(first_row.tolist())
+print(sec_row.tolist())
+
 # ------------------------------------------------------------------------------
 # 7. Entrenar el modelo (MLPClassifier).
 model = MLPClassifier(
